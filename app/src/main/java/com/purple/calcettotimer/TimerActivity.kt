@@ -15,115 +15,115 @@ class TimerActivity : AppCompatActivity(), View.OnClickListener {
     private var min = 5
     private var sec = 0
 
-    private lateinit var listaView: MutableList<View>
-    private lateinit var cronometro: Cronometro
+    private lateinit var viewList: MutableList<View>
+    private lateinit var chronos: Chronos
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
-        caricaSfondo()
-        inserisciViewInLista()
-        trasparenzaBottoni()
-        dimensioniCronometro()
-        initCronometro()
-        aggiungiClickListener()
-        aggiornaTextViewPicker()
+        loadBackground()
+        addViewsOnList()
+        addLayerToButtons()
+        setTextDimension()
+        initChronos()
+        initClickListener()
+        updateTextViewPicker()
     }
 
     override fun onClick(view: View) {
         when (view) {
-            start_button -> { cronometro.startCronometro() }
-            stopButton -> { cronometro.stopCronometro() }
-            reset_button -> { cronometro.resetCronometro() }
-            restartButton -> { cronometro.restartCronometro() }
-            set_time_button -> { cronometro.setCronometro(min, sec) }
-            piuButtonMin -> {
+            startButton -> { chronos.startChronos() }
+            stopButton -> { chronos.stopChronos() }
+            resetButton -> { chronos.resetChronos() }
+            restartButton -> { chronos.restartChronos() }
+            setTimerButton -> { chronos.setChronos(min, sec) }
+            plusButtonMin -> {
                 min++
 
                 if (min > 99) min = 99
 
-                aggiornaTextViewPicker()
+                updateTextViewPicker()
             }
-            menoButtonMin -> {
+            minusButtonMin -> {
                 min--
 
                 if (min < 0) min = 0
 
-                aggiornaTextViewPicker()
+                updateTextViewPicker()
             }
-            piuButtonSec -> {
+            plusButtonSec -> {
                 sec++
 
                 if (sec > 99) sec = 99
 
-                aggiornaTextViewPicker()
+                updateTextViewPicker()
             }
-            menoButtonSec -> {
+            minusButtonSec -> {
                 sec--
 
                 if (sec < 0) sec = 0
 
-                aggiornaTextViewPicker()
+                updateTextViewPicker()
             }
         }
     }
 
-    private fun caricaSfondo() {
+    private fun loadBackground() {
         Glide.with(this)
                 .load(R.drawable.campo)
                 .into(backgroundImageView)
     }
 
-    private fun inserisciViewInLista() {
-        Log.d(TAG, "inserisciViewInLista - start")
-        listaView = LinkedList()
+    private fun addViewsOnList() {
+        Log.d(TAG, "addViewsOnList - start")
+        viewList = LinkedList()
 
-        listaView.add(stopButton)
-        listaView.add(restartButton)
-        listaView.add(reset_button)
-        listaView.add(start_button)
-        listaView.add(piuButtonMin)
-        listaView.add(menoButtonMin)
-        listaView.add(piuButtonSec)
-        listaView.add(menoButtonSec)
-        listaView.add(set_time_button)
+        viewList.add(stopButton)
+        viewList.add(restartButton)
+        viewList.add(resetButton)
+        viewList.add(startButton)
+        viewList.add(plusButtonMin)
+        viewList.add(minusButtonMin)
+        viewList.add(plusButtonSec)
+        viewList.add(minusButtonSec)
+        viewList.add(setTimerButton)
     }
 
-    private fun trasparenzaBottoni() {
-        Log.d(TAG, "trasparenzaBottoni - start")
-        for (v in listaView) {
+    private fun addLayerToButtons() {
+        Log.d(TAG, "addLayerToButtons - start")
+        for (v in viewList) {
             v.background.alpha = 210
         }
     }
 
-    private fun dimensioniCronometro() {
+    private fun setTextDimension() {
         val altSchermo = resources.displayMetrics.heightPixels
 
         if (altSchermo <= 600)
-            cronometroTextView.textSize = 48f
+            timerTextView.textSize = 48f
     }
 
-    private fun initCronometro() {
+    private fun initChronos() {
         val mp = MediaPlayer.create(this@TimerActivity, R.raw.arbitro)
 
-        cronometro = Cronometro(cronometroTextView, mp)
-        cronometro.setCronometro(min, sec)
+        chronos = Chronos(timerTextView, mp)
+        chronos.setChronos(min, sec)
     }
 
-    private fun aggiungiClickListener() {
-        start_button.setOnClickListener(this)
+    private fun initClickListener() {
+        startButton.setOnClickListener(this)
         stopButton.setOnClickListener(this)
-        reset_button.setOnClickListener(this)
+        resetButton.setOnClickListener(this)
         restartButton.setOnClickListener(this)
-        set_time_button.setOnClickListener(this)
-        piuButtonMin.setOnClickListener(this)
-        menoButtonMin.setOnClickListener(this)
-        piuButtonSec.setOnClickListener(this)
-        menoButtonSec.setOnClickListener(this)
+        setTimerButton.setOnClickListener(this)
+        plusButtonMin.setOnClickListener(this)
+        minusButtonMin.setOnClickListener(this)
+        plusButtonSec.setOnClickListener(this)
+        minusButtonSec.setOnClickListener(this)
     }
 
-    private fun aggiornaTextViewPicker() {
+    private fun updateTextViewPicker() {
         editTextMin.setText(getString(R.string.minutes, min))
         editTextSec.setText(getString(R.string.seconds, sec))
     }

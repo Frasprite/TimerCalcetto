@@ -21,7 +21,7 @@
 
 
     <Button
-        android:id="@+id/piuButtonMin"
+        android:id="@+id/plusButtonMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -51,10 +51,10 @@
         android:inputType="none|number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/piuButtonMin" />
+        app:layout_constraintTop_toBottomOf="@+id/plusButtonMin" />
 
     <Button
-        android:id="@+id/menoButtonMin"
+        android:id="@+id/minusButtonMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -69,7 +69,7 @@
 
 
     <Button
-        android:id="@+id/piuButtonSec"
+        android:id="@+id/plusButtonSec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -100,10 +100,10 @@
         android:inputType="none|number"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/piuButtonSec" />
+        app:layout_constraintTop_toBottomOf="@+id/plusButtonSec" />
 
     <Button
-        android:id="@+id/menoButtonSec"
+        android:id="@+id/minusButtonSec"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -118,7 +118,7 @@
 
 
     <Button
-        android:id="@+id/set_time_button"
+        android:id="@+id/setTimerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -127,13 +127,13 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/set_time"
-        app:layout_constraintBottom_toTopOf="@+id/cronometroTextView"
+        app:layout_constraintBottom_toTopOf="@+id/timerTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
-        android:id="@+id/cronometroTextView"
+        android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -149,7 +149,7 @@
 
 
     <Button
-        android:id="@+id/reset_button"
+        android:id="@+id/resetButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -172,12 +172,12 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/stop"
-        app:layout_constraintBottom_toTopOf="@+id/reset_button"
+        app:layout_constraintBottom_toTopOf="@+id/resetButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline" />
 
     <Button
-        android:id="@+id/start_button"
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
