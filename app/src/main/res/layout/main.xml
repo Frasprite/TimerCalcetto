@@ -1,152 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/campo"
-    android:keepScreenOn="true" >
+    tools:context=".CalcettoTimerActivity">
 
-    <Button
-        android:id="@+id/restartButton"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/restart" />
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayoutSceltaTempo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp" >
+        <ImageView
+            android:id="@+id/backgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/image_description"
+            android:scaleType="centerInside"
+            android:src="@drawable/campo" />
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayoutSceltaMinuti"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_toLeftOf="@+id/RelativeLayoutSceltaSecondi" >
+        <include layout="@layout/content_main" />
 
-            <Button
-                android:id="@+id/piuButtonMin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/plus" />
+    </FrameLayout>
 
-            <EditText
-                android:id="@+id/editTextMin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/piuButtonMin"
-                android:layout_centerHorizontal="true"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="none|number" />
-
-            <Button
-                android:id="@+id/menoButtonMin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextMin"
-                android:text="@string/minus" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/RelativeLayoutSceltaSecondi"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal" >
-
-            <Button
-                android:id="@+id/piuButtonSec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/plus" />
-
-            <EditText
-                android:id="@+id/editTextSec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/piuButtonSec"
-                android:layout_centerHorizontal="true"
-                android:clickable="false"
-                android:cursorVisible="false"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:gravity="center"
-                android:inputType="none|number" />
-
-            <Button
-                android:id="@+id/menoButtonSec"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/editTextSec"
-                android:text="@string/minus" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/set_time_button"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="18dp"
-            android:layout_toRightOf="@+id/RelativeLayoutSceltaSecondi"
-            android:text="@string/set_time" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/RelativeLayoutCronometro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/reset_button"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/RelativeLayoutSceltaTempo" >
-
-        <TextView
-            android:id="@+id/cronometroTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/timer_zero"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FF000000"
-            android:textSize="90dp" />
-
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/reset_button"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/restartButton"
-        android:layout_alignParentRight="true"
-        android:text="@string/reset" />
-
-    <Button
-        android:id="@+id/stopButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/reset_button"
-        android:layout_alignBottom="@+id/reset_button"
-        android:layout_toLeftOf="@+id/reset_button"
-        android:text="@string/stop" />
-
-    <Button
-        android:id="@+id/start_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/stopButton"
-        android:layout_alignBottom="@+id/stopButton"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/stopButton"
-        android:text="@string/start" />
-
-</RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

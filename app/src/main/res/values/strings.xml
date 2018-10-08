@@ -9,5 +9,8 @@
     <string name="timer_zero">00:00</string>
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="seconds_sample">45 sec</string>
+    <string name="minutes_sample">6 min</string>
+    <string name="image_description">Background image</string>
 
 </resources>
