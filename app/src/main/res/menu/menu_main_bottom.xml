@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/start"
+        android:enabled="true"
+        android:icon="@drawable/ic_play_arrow"
+        android:title="@string/activity_start_timer"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/pause"
+        android:enabled="true"
+        android:icon="@drawable/ic_pause"
+        android:title="@string/activity_pause_timer"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/stop"
+        android:enabled="true"
+        android:icon="@drawable/ic_stop"
+        android:title="@string/activity_stop_timer"
+        app:showAsAction="ifRoom" />
+</menu>
