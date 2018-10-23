@@ -9,9 +9,16 @@ class PrefUtil {
     companion object {
 
         private const val TIMER_LENGTH_ID = "com.purple.calcettotimer.timer_length"
+
+        fun setTimerLength(timerLength: Int, context: Context) {
+            val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+            editor.putInt(TIMER_LENGTH_ID, timerLength)
+            editor.apply()
+        }
+
         fun getTimerLength(context: Context): Int{
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-            return preferences.getInt(TIMER_LENGTH_ID, 5)
+            return preferences.getInt(TIMER_LENGTH_ID, 0)
         }
 
         private const val PREVIOUS_TIMER_LENGTH_SECONDS_ID = "com.purple.calcettotimer.previous_timer_length_seconds"

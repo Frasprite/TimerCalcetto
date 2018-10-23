@@ -13,11 +13,14 @@ import android.view.MenuItem
 import com.purple.calcettotimer.R
 import com.purple.calcettotimer.util.NotificationUtil
 import com.purple.calcettotimer.util.PrefUtil
+import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.activity_timer.*
+import kotlinx.android.synthetic.main.content_config.*
 import kotlinx.android.synthetic.main.content_timer.*
 import java.util.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
+                                            NumberPicker.OnValueChangeListener {
 
     companion object {
         fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
@@ -54,6 +57,11 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private var secondsRemaining: Long = 0
 
+    private var numberOfPlayers: Int = 5
+    private var turnOnOnCage: Int = 2
+    private var minutes: Int = 60
+    private var seconds: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
@@ -64,6 +72,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onResume() {
         super.onResume()
 
+        initPickers()
         initTimer()
 
         removeAlarm(this)
@@ -108,11 +117,37 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         return true
     }
 
+    override fun onValueChange(picker: NumberPicker?, oldVal: Int, newVal: Int) {
+        Log.v(logTag, String.format(Locale.getDefault(), "oldVal: %d, newVal: %d", oldVal, newVal))
+
+        when (picker!!) {
+            playerPicker -> numberOfPlayers = newVal
+            turnOnCagePicker -> turnOnOnCage = newVal
+            minutesPicker -> minutes = newVal
+            secondsPicker -> seconds = newVal
+        }
+
+        // Function to calculate time on cage
+        // Minutes of game / (N. players * Turn on cage)
+        // Sample : 60 min / (5 * 2) = 6 minutes per turn
+
+        val timer = ((minutes * 60) + seconds) / (numberOfPlayers * turnOnOnCage)
+        Log.v(logTag, "onValueChange - Setting timer to $timer")
+        PrefUtil.setTimerLength(timer, this)
+        initTimer()
+    }
+
+    private fun initPickers() {
+        playerPicker.setOnValueChangedListener(this@MainActivity)
+        turnOnCagePicker.setOnValueChangedListener(this@MainActivity)
+        minutesPicker.setOnValueChangedListener(this@MainActivity)
+        secondsPicker.setOnValueChangedListener(this@MainActivity)
+    }
+
     private fun initTimer(){
         timerState = PrefUtil.getTimerState(this)
 
-        //we don't want to change the length of the timer which is already running
-        //if the length was changed in settings while it was backgrounded
+        // Don't change the length of the timer which is already running
         if (timerState == TimerState.Stopped) {
             setNewTimerLength()
         } else {
@@ -170,8 +205,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     private fun setNewTimerLength(){
-        val lengthInMinutes = PrefUtil.getTimerLength(this)
-        timerLengthSeconds = (lengthInMinutes * 60L)
+        val lengthInSeconds = PrefUtil.getTimerLength(this)
+        timerLengthSeconds = (lengthInSeconds * 1L)
         progress_countdown.max = timerLengthSeconds.toInt()
     }
 
@@ -196,6 +231,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 bottomMenu.menu.findItem(R.id.start).isEnabled = false
                 bottomMenu.menu.findItem(R.id.pause).isEnabled = true
                 bottomMenu.menu.findItem(R.id.stop).isEnabled = true
+                playerPicker.isEnabled = false
+                turnOnCagePicker.isEnabled = false
+                minutesPicker.isEnabled = false
+                secondsPicker.isEnabled = false
             }
             TimerState.Stopped -> {
                 Log.v(logTag, "updateButtons - Timer is stopped")
@@ -203,6 +242,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 bottomMenu.menu.findItem(R.id.start).isEnabled = true
                 bottomMenu.menu.findItem(R.id.pause).isEnabled = false
                 bottomMenu.menu.findItem(R.id.stop).isEnabled = false
+                playerPicker.isEnabled = true
+                turnOnCagePicker.isEnabled = true
+                minutesPicker.isEnabled = true
+                secondsPicker.isEnabled = true
             }
             TimerState.Paused -> {
                 Log.v(logTag, "updateButtons - Timer is paused")
@@ -210,6 +253,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 bottomMenu.menu.findItem(R.id.start).isEnabled = true
                 bottomMenu.menu.findItem(R.id.pause).isEnabled = false
                 bottomMenu.menu.findItem(R.id.stop).isEnabled = true
+                playerPicker.isEnabled = false
+                turnOnCagePicker.isEnabled = false
+                minutesPicker.isEnabled = false
+                secondsPicker.isEnabled = false
             }
         }
     }

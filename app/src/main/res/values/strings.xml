@@ -18,4 +18,10 @@
     <string name="activity_pause_timer">Pause</string>
     <string name="activity_stop_timer">Stop</string>
 
+    <string name="number_picker_formatter">%02d</string>
+    <string name="players">Giocatori</string>
+    <string name="minutes_text">Minuti</string>
+    <string name="seconds_text">Secondi</string>
+    <string name="turn">Turni in porta</string>
+
 </resources>
