@@ -23,5 +23,6 @@
     <string name="minutes_text">Minuti</string>
     <string name="seconds_text">Secondi</string>
     <string name="turn">Turni in porta</string>
+    <string name="times_on_cage">Tempo in porta</string>
 
 </resources>
