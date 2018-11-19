@@ -26,7 +26,7 @@ class NotificationUtil {
         private const val CHANNEL_NAME_TIMER = "Timer Calcetto Timer"
         private const val TIMER_ID = 0
 
-        fun showTimerExpired(context: Context){
+        fun showTimerExpired(context: Context) {
             val startIntent = Intent(context, TimerNotificationActionReceiver::class.java)
             startIntent.action = AppConstants.ACTION_START
             val startPendingIntent = PendingIntent.getBroadcast(context,
@@ -44,7 +44,7 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun showTimerRunning(context: Context, wakeUpTime: Long){
+        fun showTimerRunning(context: Context, wakeUpTime: Long) {
             val stopIntent = Intent(context, TimerNotificationActionReceiver::class.java)
             stopIntent.action = AppConstants.ACTION_STOP
             val stopPendingIntent = PendingIntent.getBroadcast(context,
@@ -71,7 +71,7 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun showTimerPaused(context: Context){
+        fun showTimerPaused(context: Context) {
             val resumeIntent = Intent(context, TimerNotificationActionReceiver::class.java)
             resumeIntent.action = AppConstants.ACTION_RESUME
             val resumePendingIntent = PendingIntent.getBroadcast(context,
@@ -90,13 +90,13 @@ class NotificationUtil {
             nManager.notify(TIMER_ID, nBuilder.build())
         }
 
-        fun hideTimerNotification(context: Context){
+        fun hideTimerNotification(context: Context) {
             val nManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             nManager.cancel(TIMER_ID)
         }
 
         private fun getBasicNotificationBuilder(context: Context, channelId: String, playSound: Boolean)
-        : NotificationCompat.Builder{
+        : NotificationCompat.Builder {
             val notificationSound: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
             val nBuilder = NotificationCompat.Builder(context, channelId)
                     .setSmallIcon(R.drawable.ic_timer)
@@ -106,7 +106,7 @@ class NotificationUtil {
             return nBuilder
         }
 
-        private fun <T> getPendingIntentWithStack(context: Context, javaClass: Class<T>): PendingIntent{
+        private fun <T> getPendingIntentWithStack(context: Context, javaClass: Class<T>): PendingIntent {
             val resultIntent = Intent(context, javaClass)
             resultIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
@@ -120,8 +120,8 @@ class NotificationUtil {
         @TargetApi(26)
         private fun NotificationManager.createNotificationChannel(channelID: String,
                                                                   channelName: String,
-                                                                  playSound: Boolean){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                                                                  playSound: Boolean) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val channelImportance = if (playSound) NotificationManager.IMPORTANCE_DEFAULT
                 else NotificationManager.IMPORTANCE_LOW
                 val nChannel = NotificationChannel(channelID, channelName, channelImportance)

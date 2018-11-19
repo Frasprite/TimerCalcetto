@@ -197,13 +197,13 @@
                 android:layout_marginBottom="8dp"
                 android:text="@string/times_on_cage"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/textView_countdown"
+                app:layout_constraintBottom_toTopOf="@+id/countdownTextView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView_countdown"
+                android:id="@+id/countdownTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
