@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.purple.calcettotimer.ui.MainActivity">
 
-    <include layout="@layout/content_config" />
-
-    <include layout="@layout/content_timer" />
+    <include
+        layout="@layout/content_config"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?actionBarSize" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomMenu"

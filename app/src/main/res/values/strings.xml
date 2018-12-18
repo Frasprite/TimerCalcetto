@@ -24,5 +24,6 @@
     <string name="seconds_text">Secondi</string>
     <string name="turn">Turni in porta</string>
     <string name="times_on_cage">Tempo in porta</string>
+    <string name="ball_image">Soccer ball image</string>
 
 </resources>

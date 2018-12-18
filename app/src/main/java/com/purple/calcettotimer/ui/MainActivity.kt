@@ -6,10 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.app.AppCompatActivity
 import android.util.Log
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.purple.calcettotimer.R
 import com.purple.calcettotimer.model.FootballMatch
 import com.purple.calcettotimer.model.TimerState
@@ -18,9 +18,12 @@ import com.purple.calcettotimer.util.PrefUtil
 import com.shawnlin.numberpicker.NumberPicker
 import kotlinx.android.synthetic.main.activity_timer.*
 import kotlinx.android.synthetic.main.content_config.*
-import kotlinx.android.synthetic.main.content_timer.*
 import java.util.*
 
+
+/**
+ * Main and unique activity of our app.
+ */
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener,
                                             NumberPicker.OnValueChangeListener {
 
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val nowSeconds: Long
             get() = Calendar.getInstance().timeInMillis / 1000
 
-        val logTag = MainActivity::class.java.simpleName
+        val logTag: String = MainActivity::class.java.simpleName
     }
 
     private lateinit var timer: CountDownTimer
@@ -129,6 +132,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         initTimer()
     }
 
+    /**
+     * Set on value changed listener to pickers.
+     */
     private fun initPickers() {
         playerPicker.setOnValueChangedListener(this@MainActivity)
         turnOnCagePicker.setOnValueChangedListener(this@MainActivity)
@@ -136,6 +142,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         secondsPicker.setOnValueChangedListener(this@MainActivity)
     }
 
+    /**
+     * Loading previous timer or initialize it if empty.
+     */
     private fun initTimer() {
         match.timerState = PrefUtil.getTimerState(this)
 
@@ -163,18 +172,21 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             startTimer()
         }
 
+        // Updating UI
         updateButtons()
         updateCountdownUI()
     }
 
+    /**
+     * Update UI and timer status when it is finished.
+     */
     private fun onTimerFinished() {
         match.timerState = TimerState.Stopped
 
-        //set the length of the timer to be the one set in SettingsActivity
-        //if the length was changed when the timer was running
+        // Set default length of the timer or init new one
         setNewTimerLength()
 
-        progress_countdown.progress = 0
+        //progressCountdown.progress = 0
 
         PrefUtil.setSecondsRemaining(match.timerLengthSeconds, this)
         match.secondsRemaining = match.timerLengthSeconds
@@ -183,6 +195,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         updateCountdownUI()
     }
 
+    /**
+     * Start a new timer for the match.
+     */
     private fun startTimer() {
         match.timerState = TimerState.Running
 
@@ -199,21 +214,17 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     private fun setNewTimerLength() {
         val lengthInSeconds = PrefUtil.getTimerLength(this)
         match.timerLengthSeconds = (lengthInSeconds * 1L)
-        progress_countdown.max = match.timerLengthSeconds.toInt()
+        //progressCountdown.max = match.timerLengthSeconds.toInt()
     }
 
     private fun setPreviousTimerLength() {
         match.timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(this)
-        progress_countdown.max = match.timerLengthSeconds.toInt()
+        //progressCountdown.max = match.timerLengthSeconds.toInt()
     }
 
     private fun updateCountdownUI() {
-        val minutesUntilFinished = match.secondsRemaining / 60
-        val secondsInMinuteUntilFinished = match.secondsRemaining - minutesUntilFinished * 60
-        val secondsStr = secondsInMinuteUntilFinished.toString()
-        countdownTextView.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0$secondsStr"}"
-        textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0$secondsStr"}"
-        progress_countdown.progress = (match.timerLengthSeconds - match.secondsRemaining).toInt()
+        textViewCountdown.text = String.format("%02d:%02d", (match.secondsRemaining % 3600) / 60, (match.secondsRemaining % 60))
+        //progressCountdown.progress = (match.timerLengthSeconds - match.secondsRemaining).toInt()
     }
 
     private fun updateButtons() {
